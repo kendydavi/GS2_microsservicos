@@ -5,8 +5,27 @@ const ROUTING_KEY = 'space.weather.alert';
 
 let channel = null;
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// O healthcheck do RabbitMQ pode reportar "healthy" antes do listener AMQP
+// (porta 5672) estar pronto para aceitar conexões — por isso o connect precisa
+// de retry com backoff, não só depender do `depends_on: condition: service_healthy`.
+async function connectWithRetry(url, retries = 10, delayMs = 2000) {
+  for (let attempt = 1; attempt <= retries; attempt += 1) {
+    try {
+      return await amqp.connect(url);
+    } catch (err) {
+      console.log(`[publisher] tentativa ${attempt}/${retries} de conexão ao RabbitMQ falhou: ${err.message}`);
+      if (attempt === retries) throw err;
+      await sleep(delayMs);
+    }
+  }
+  throw new Error('não foi possível conectar ao RabbitMQ');
+}
+
 async function connectPublisher() {
-  const conn = await amqp.connect(process.env.RABBITMQ_URL || 'amqp://guest:guest@localhost:5672');
+  const url = process.env.RABBITMQ_URL || 'amqp://guest:guest@localhost:5672';
+  const conn = await connectWithRetry(url);
   channel = await conn.createChannel();
   await channel.assertExchange(EXCHANGE, 'topic', { durable: true });
   console.log('[publisher] conectado ao RabbitMQ e exchange declarada');
