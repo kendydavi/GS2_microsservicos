@@ -1,0 +1,13 @@
+{
+  "name": "notifier-service",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/consumer.js",
+  "scripts": {
+    "start": "node src/consumer.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.4",
+    "ioredis": "^5.4.1"
+  }
+}

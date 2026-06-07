@@ -1,0 +1,4 @@
+node_modules/
+.env
+k6/result.txt
+npm-debug.log*

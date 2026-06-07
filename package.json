@@ -1,0 +1,12 @@
+{
+  "name": "solar-shield",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Solar Shield - Sistema de Monitoramento de Clima Espacial (Global Solution 2026.1)",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
