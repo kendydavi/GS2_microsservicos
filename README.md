@@ -135,3 +135,5 @@ solar-shield/
 ├── tests/                  # 3 testes unitários (RN1, RN3, parsing)
 └── k6/                     # smoke test (10 VUs / 10s)
 ```
+
+
