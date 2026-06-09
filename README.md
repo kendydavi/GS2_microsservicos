@@ -135,12 +135,3 @@ solar-shield/
 ├── tests/                  # 3 testes unitários (RN1, RN3, parsing)
 └── k6/                     # smoke test (10 VUs / 10s)
 ```
-
-## Checklist
-- [x] 2 microsserviços independentes (ingestor + notifier) + diagrama Mermaid
-- [x] RabbitMQ producer/consumer com idempotência por `event_id` (RN3)
-- [x] Nginx API Gateway com proxy reverso e rate limiting (429 visível)
-- [x] Cache-aside Redis em `/current` com TTL justificado (60s)
-- [x] Retry com backoff exponencial na chamada à NASA
-- [x] 3 testes unitários cobrindo RN1 e RN3 + smoke test k6 (10 VUs / 10s)
-- [x] `docker-compose up --build` sobe toda a infraestrutura
