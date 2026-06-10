@@ -120,6 +120,7 @@ O cliente NASA (`src/ingestor-service/src/nasaClient.js`) usa `axios` +
 (500ms, 1s, 2s), retry apenas em erros transitórios (timeout, 5xx, 429); erros
 4xx são propagados imediatamente. Cada tentativa é logada com a URL e o motivo.
 
+        
 ## Estrutura de pastas
 
 ```
